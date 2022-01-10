@@ -4,11 +4,13 @@ body {
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 .MainBar_MainBar {
   width: 100%;
   height: 50px;
+  box-shadow: 0 1px 0 0 rgb(0 0 0 / 10%);
 }
 
 .MainBar_MainBar_nav {
@@ -36,6 +38,11 @@ a {
   line-height: 20px;
   padding: 15px;
   font-weight: 600;
+}
+
+.Menu_className li:hover {
+  color: inherit;
+  box-shadow: 0 2px 0 0 rgb(0 0 0 / 10%);
 }
 
 .Menu_className em {

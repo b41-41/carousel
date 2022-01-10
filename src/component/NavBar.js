@@ -13,13 +13,13 @@ const NavBar = () => {
                         <a href="/"><img src={logoImg} alt="logo" width="75px" height="17px" /></a>
                     </div>
                     <ul className="Menu_className">
-                        <li>채용</li>
-                        <li>이벤트</li>
-                        <li>직군별 연봉</li>
-                        <li>이력서</li>
-                        <li>커뮤니티<em>New</em></li>
-                        <li>프리랜서</li>
-                        <li>AI 합격예측<em>Beta</em></li>
+                        <li><a href="#">채용</a></li>
+                        <li><a href="#">이벤트</a></li>
+                        <li><a href="#">직군별 연봉</a></li>
+                        <li><a href="#">이력서</a></li>
+                        <li><a href="#">커뮤니티<em>New</em></a></li>
+                        <li><a href="#">프리랜서</a></li>
+                        <li><a href="#">AI 합격예측<em>Beta</em></a></li>
                     </ul>
                     <aside className="Aside_className">
                         <ul>
