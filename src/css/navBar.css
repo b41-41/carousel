@@ -7,18 +7,23 @@ a {
   color: inherit;
 }
 
+.NavBar_ClassName {
+  display: fixed;
+  box-shadow: 0 1px 0 0 rgb(0 0 0 / 10%);
+  width: 100%;
+}
+
 .MainBar_MainBar {
   width: 100%;
   height: 50px;
-  box-shadow: 0 1px 0 0 rgb(0 0 0 / 10%);
 }
 
 .MainBar_MainBar_nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 80%;
-  margin: auto 10%;
+  width: 1060px;
+  margin: 0 auto;
   height: 50px;
   /* background-color: grey; */
 }
@@ -26,6 +31,7 @@ a {
 .MainBar_hamberger {
   margin-right: 15px;
   margin-top: -2px;
+  padding: 0;
 }
 
 .Menu_className {
@@ -52,6 +58,7 @@ a {
   font-style: normal;
   font-size: 9px;
   font-weight: 500;
+  color: #4468f7;
 }
 
 .Aside_className {
@@ -73,8 +80,13 @@ a {
   margin-top: 5px;
   padding: 0 10px;
   font-weight: 600;
-  width: 90px;
-  height: 14px;
+  width: 38px;
+  height: 21px;
+}
+
+.menuButton {
+  padding-left: 10px;
+  padding-right: 5px;
 }
 
 .dashboardButton {
@@ -86,4 +98,149 @@ a {
   font-size: 13px;
   color: #666;
   line-height: 30px;
+}
+
+.Menu_className_home {
+  display: none !important;
+}
+
+.xsSignUpButton {
+  color: #36f;
+  font-size: 14px;
+  line-height: 32px;
+  height: 34px;
+  border: 1px solid #36f;
+  border-radius: 17px;
+  padding: 0 14px;
+  display: none;
+}
+
+.before_line {
+  background-color: rgb(225, 226, 227);
+  box-sizing: border-box;
+  display: inline-block;
+  height: 10px;
+  width: 1px;
+  margin: auto 10px;
+}
+
+.mdMoreVisible {
+  display: flex;
+  vertical-align: middle;
+  justify-content: space-between;
+}
+
+/* 미디어 쿼리 */
+
+@media (max-width: 1178px) {
+  body {
+    font-size: 12px;
+  }
+
+  .MainBar_MainBar_nav {
+    margin: 0 auto;
+    width: 90%;
+  }
+
+  .searchButton {
+    padding: 0 0;
+  }
+
+  .dashboardButton {
+    margin-left: 0px;
+  }
+
+  .signUpButton {
+    width: 100px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 991px) {
+  body {
+    font-size: 13px;
+  }
+
+  .MainBar_MainBar {
+    width: 95%;
+    height: 110px;
+    margin: 0 auto;
+  }
+
+  .MainBar_MainBar_nav {
+    flex-wrap: wrap;
+    margin: 0 auto;
+    width: 95%;
+  }
+
+  .MainBar_MainBar_nav_top {
+    display: flex;
+    width: 100%;
+    height: 60px;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .Menu_className li {
+    padding: 11px 10px 19px;
+  }
+
+  .Menu_className li:hover {
+    box-shadow: none;
+  }
+
+  .signUpButton {
+    display: none;
+  }
+
+  .dashboardButton {
+    display: none;
+  }
+
+  .xsSignUpButton {
+    display: inline-block;
+  }
+
+  .before_line {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  .MainBar_MainBar_nav_top {
+    padding: 15px 20px;
+  }
+
+  .MainBar_MainBar {
+    width: 100%;
+    height: 110px;
+    margin: 0 auto;
+  }
+
+  .MainBar_MainBar_nav {
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .Menu_className li {
+    padding: 11px 10px 19px;
+  }
+
+  .Menu_className_option {
+    display: none !important;
+  }
+
+  .Menu_className_home {
+    display: inline-block !important;
+    padding-left: 20px !important;
+  }
+
+  .menuButton {
+    margin-right: 10px;
+  }
 }
