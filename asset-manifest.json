@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/carousel/static/css/main.094daf90.css",
+    "main.js": "/carousel/static/js/main.d4195f7d.js",
+    "static/media/8.jpg": "/carousel/static/media/8.ff328424bd7430c39949.jpg",
+    "static/media/4.jpg": "/carousel/static/media/4.fe02b7a3ce12251913f8.jpg",
+    "static/media/2.jpg": "/carousel/static/media/2.bc7b4b93e64ed7140792.jpg",
+    "static/media/10.jpg": "/carousel/static/media/10.752c21c9f7c64f0965f1.jpg",
+    "static/media/5.jpg": "/carousel/static/media/5.e30d44245f4394f6a670.jpg",
+    "static/media/6.jpg": "/carousel/static/media/6.5566f17afbeb6f0db562.jpg",
+    "static/media/3.jpg": "/carousel/static/media/3.76cca6f6affacbebe461.jpg",
+    "static/media/11.jpg": "/carousel/static/media/11.62e6ac53507a940467b4.jpg",
+    "static/media/9.jpg": "/carousel/static/media/9.34681ae1a044a0a11b83.jpg",
+    "static/media/7.jpg": "/carousel/static/media/7.ea64c758420d2cbc835e.jpg",
+    "static/media/1.jpg": "/carousel/static/media/1.ded0ed346bd8c5857d29.jpg",
+    "static/media/logo.png": "/carousel/static/media/logo.33f94ba6e410d92d4396.png",
+    "static/media/search.png": "/carousel/static/media/search.a27091ef0c45faf8a66e.png",
+    "index.html": "/carousel/index.html",
+    "main.094daf90.css.map": "/carousel/static/css/main.094daf90.css.map",
+    "main.d4195f7d.js.map": "/carousel/static/js/main.d4195f7d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.094daf90.css",
+    "static/js/main.d4195f7d.js"
+  ]
+}
