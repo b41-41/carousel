@@ -16,7 +16,7 @@ const NavBar = () => {
                                 <button className="MainBar_hamberger" type="button"><img src={menuImg} alt="menu" width="17px" height="14px" /></button>
                                 <a href="/"><img src={logoImg} alt="logo" width="75px" height="17px" /></a>
                             </div>
-                            <button class="xsSignUpButton" type="button">회원가입하기</button>
+                            <button className="xsSignUpButton" type="button">회원가입하기</button>
                         </div>
                         <ul className="Menu_className">
                             <li className='Menu_className_home'><a href="/">홈</a></li>
@@ -25,7 +25,7 @@ const NavBar = () => {
                             <li className="Menu_className_option"><a href="/salary">직군별 연봉</a></li>
                             <li className="Menu_className_option"><a href="/cv/intro">이력서</a></li>
                             <li className="Menu_className_option"><a href="/community">커뮤니티<em>New</em></a></li>
-                            <li className="Menu_className_option"><a href="#">프리랜서</a></li>
+                            <li className="Menu_className_option"><a href="/">프리랜서</a></li>
                             <li className="Menu_className_option"><a href="aiscore/resume">AI 합격예측<em>Beta</em></a></li>
                         </ul>
                         <aside className="Aside_className">
