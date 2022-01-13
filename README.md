@@ -2,13 +2,15 @@
 
 원티드 상단 영역 클론 코딩
 
-
-
 ## 과제 구현 목록
 
 1. 상단 GNB (Global Navigation Bar)
 2. 캐러셀(슬라이드) 영역
 3. 반응형(Responsive Web) 구현
+
+## 바로가기 링크
+
+https://b41-41.github.io/carousel/
 
 ## 실행 방법
 
