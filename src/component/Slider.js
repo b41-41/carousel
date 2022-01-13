@@ -42,30 +42,30 @@ const Slider = () => {
     //캐러셀 transform, width 계산
     const slideStyle = {
         width: totalBannerWidth + 'px',
+        height: '300px',
         transform: `translate(-${centerBannerPositionValue()}px, 0px)`
     };
 
     return (
         <>
-            <section
-                className="slider"
-                style={slideStyle}>
-
-                {BannerData.map((slide, index) => {
-                    return (
-                        <div className="carousel_slide" data-index={index} aria-hidden="true">
-                            <a href={slide.link}><img src={slide.image} alt={slide.title} /></a>
-                            <div className="carousel_slide_information">
-                                <h2>{slide.title}</h2>
-                                <h3>{slide.content}</h3>
-                                <hr />
-                                <a className="carousel_link" href={slide.link}>
-                                    바로가기 &#62;
-                                </a>
+            <section className="slider-box">
+                <div className="slider" style={slideStyle}>
+                    {BannerData.map((slide, index) => {
+                        return (
+                            <div className="carousel_slide" data-index={index} aria-hidden="true">
+                                <a href={slide.link}><img src={slide.image} alt={slide.title} /></a>
+                                <div className="carousel_slide_information">
+                                    <h2>{slide.title}</h2>
+                                    <h3>{slide.content}</h3>
+                                    <hr />
+                                    <a className="carousel_link" href={slide.link}>
+                                        바로가기 &#62;
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    )
-                })}
+                        )
+                    })}
+                </div>
             </section>
             <div className="arrow" onClick={switchPrevBannerNumber}> &#60; </div>
             <div className="arrow" onClick={switchNextBannerNumber}> &#62; </div>

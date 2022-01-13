@@ -1,3 +1,9 @@
+.slider-box {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
+
 .slider {
   display: flex;
 }
