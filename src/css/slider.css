@@ -48,11 +48,3 @@
   width: 79px;
   height: 49px;
 }
-
-.arrow {
-  display: block;
-  position: fixed;
-  top: 400px;
-  left: 20px;
-  font-size: 50px;
-}

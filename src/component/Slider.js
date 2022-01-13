@@ -16,8 +16,9 @@ const Slider = () => {
 
     //배너가 가운데에 위치 했을 때의 translate 값
     const centerBannerPositionValue = () => {
-        const lastBannerWidth = (BannerData.length - currentBannerNumber) * bannerWidth;
-        return lastBannerWidth;
+        const lastBannerWidth = (BannerData.length - currentBannerNumber) * bannerWidth();
+        const lastBannerMargin = (browserWidth - lastBannerWidth) / 2;
+        return lastBannerWidth + lastBannerMargin;
     }
 
     //배너 이동 function (버튼, 시간 조건으로 사용)
@@ -42,31 +43,34 @@ const Slider = () => {
         transform: `translate(-${centerBannerPositionValue()}px, 0px)`
     };
 
+    console.log(centerBannerPositionValue());
+
     return (
-        <section
-            className="slider"
-            style={slideStyle}>
+        <>
+            <section
+                className="slider"
+                style={slideStyle}>
 
-            {BannerData.map((slide, index) => {
-                return (
-                    <div className="carousel_slide" data-index={index} aria-hidden="true">
-                        <a href={slide.link}><img src={slide.image} alt={slide.title} /></a>
-                        <div className="carousel_slide_information">
-                            <h2>{slide.title}</h2>
-                            <h3>{slide.content}</h3>
-                            <hr />
-                            <a className="carousel_link" href={slide.link}>
-                                바로가기 &#62;
-                            </a>
+                {BannerData.map((slide, index) => {
+                    return (
+                        <div className="carousel_slide" data-index={index} aria-hidden="true">
+                            <a href={slide.link}><img src={slide.image} alt={slide.title} /></a>
+                            <div className="carousel_slide_information">
+                                <h2>{slide.title}</h2>
+                                <h3>{slide.content}</h3>
+                                <hr />
+                                <a className="carousel_link" href={slide.link}>
+                                    바로가기 &#62;
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                )
-            })}
-
-            <br />
-            <button type="button" className="arrow" id="left" onClick={switchPrevBannerNumber}> &#60; </button>
-            <button type="button" className="arrow" id="right" onClick={switchNextBannerNumber}> &#62; </button>
-        </section>
+                    )
+                })}
+            </section>
+            <div className="arrow" onClick={switchPrevBannerNumber}> &#60; </div>
+            <div className="arrow" onClick={switchNextBannerNumber}> &#62; </div>
+            <div>{currentBannerNumber}</div>
+        </>
     )
 };
 
