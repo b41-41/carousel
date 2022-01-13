@@ -8,7 +8,7 @@ const Slider = () => {
     //배너 넓이
     const bannerWidth = () => {
         if (window.innerWidth > 1080) {
-            return 1080;
+            return 1072;
         } return;
     }
     //모든 배너 넓이의 합 (+사이드용 거짓 배너 (왼쪽 2개, 오른쪽 2개))
@@ -16,9 +16,11 @@ const Slider = () => {
 
     //배너가 가운데에 위치 했을 때의 translate 값
     const centerBannerPositionValue = () => {
-        const lastBannerWidth = (BannerData.length - currentBannerNumber) * bannerWidth();
-        const lastBannerMargin = (browserWidth - lastBannerWidth) / 2;
-        return lastBannerWidth + lastBannerMargin;
+        const lastBannerWidth = (currentBannerNumber) * bannerWidth();
+        const lastBannerMargin = (browserWidth - bannerWidth()) / 2;
+        console.log(lastBannerMargin);
+        return lastBannerWidth - lastBannerMargin;
+
     }
 
     //배너 이동 function (버튼, 시간 조건으로 사용)
@@ -42,8 +44,6 @@ const Slider = () => {
         width: totalBannerWidth + 'px',
         transform: `translate(-${centerBannerPositionValue()}px, 0px)`
     };
-
-    console.log(centerBannerPositionValue());
 
     return (
         <>
