@@ -56,3 +56,68 @@ hr {
   width: 79px;
   height: 49px;
 }
+
+.carousel_image {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+/* 미디어 쿼리 */
+@media (max-width: 1200px) {
+  hr {
+    display: none;
+  }
+
+  .carousel_image {
+    width: 100%;
+    height: 183px;
+    border-radius: 4px;
+    object-fit: cover;
+  }
+
+  .carousel_slide_information {
+    display: block;
+    background-color: white;
+    position: static;
+    width: 100%;
+    height: 212px;
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  .carousel_slide_information h2 {
+    display: block;
+    height: auto;
+    margin-top: 20px;
+    font-size: 18px;
+    line-height: 1;
+    font-weight: 700;
+    color: #333;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .carousel_slide_information h3 {
+    margin-top: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.15;
+    color: #666;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    height: auto;
+  }
+
+  .carousel_link {
+    display: block;
+    text-align: center;
+    padding: 8px 6px;
+    margin: 3px auto;
+    height: 40px;
+    line-height: 1;
+  }
+}

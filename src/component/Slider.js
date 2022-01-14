@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BannerData } from './BannerData';
 import styled from 'styled-components';
 import '../css/slider.css';
+import useInterval from '../hooks/useInterval';
 
 const Slider = () => {
     const [currentBannerNumber, setCurrentBannerNumber] = useState(1);
@@ -15,25 +16,26 @@ const Slider = () => {
         window.addEventListener('resize', handleResize);
         return () => {
             window.removeEventListener('resize', handleResize);
-        }
+        };
     }, []);
+
+    useInterval(switchNextBannerNumber, 4000);
 
     //배너 넓이
     const bannerWidth = () => {
-        if (window.innerWidth > 1080) {
+        if (browserWidth > 1200) {
             return 1072;
-        } else if (window.innerWidth < 800) {
-            return 500;
-        } return;
+        } else {
+            return browserWidth * 0.9;
+        }
     }
-    //모든 배너 넓이의 합 (+사이드용 거짓 배너 (왼쪽 2개, 오른쪽 2개))
-    const totalBannerWidth = (bannerWidth() * BannerData.length) + 4;
+    //모든 배너 넓이의 합 (+사이드용 거짓 배너 (왼쪽 2개, 오른0쪽 2개))
+    const totalBannerWidth = (bannerWidth() * (BannerData.length + 2));
 
     //배너가 가운데에 위치 했을 때의 translate 값
     const centerBannerPositionValue = () => {
         const lastBannerWidth = (currentBannerNumber) * bannerWidth();
         const lastBannerMargin = (browserWidth - bannerWidth()) / 2;
-        console.log(lastBannerMargin);
         return lastBannerWidth - lastBannerMargin;
 
     }
@@ -59,19 +61,59 @@ const Slider = () => {
         display: flex;
         width: ${totalBannerWidth}px;
         transform: translate(-${centerBannerPositionValue()}px, 0px);
+        transition: transform 500ms ease;
     `;
 
+    const LeftButton = styled.button`
+        position: absolute;
+        top: 195px;
+        width: 30px;
+        height: 60px;
+        opacity: .5;
+        border-radius: 15px;
+        background-color: #fff;
+        font-size: 16px;;
+        left: calc((100% - 1210px) / 2);
+    `;
 
+    const RightButton = styled.button`
+        position: absolute;
+        top: 195px;
+        width: 30px;
+        height: 60px;
+        opacity: .5;
+        border-radius: 15px;
+        background-color: #fff;
+        font-size: 16px;
+        right: calc((100% - 1200px) / 2);
+    `;
+
+    const bannerFirstObj = BannerData[0];
+    const bannerLastObj = BannerData[BannerData.length - 1];
 
     return (
         <>
             <section className="slider-box">
                 <Slider>
+                    {/* fakeLastBanner */}
+                    <a href={bannerLastObj.link}>
+                        <div className="carousel_slide" data-index={BannerData.length} aria-hidden="true">
+                            <img src={bannerLastObj.image} alt={bannerLastObj.title} className="carousel_image" />
+                            <div className="carousel_slide_information">
+                                <h2>{bannerLastObj.title}</h2>
+                                <h3>{bannerLastObj.content}</h3>
+                                <hr />
+                                <a className="carousel_link" href={bannerLastObj.link}>
+                                    바로가기 &#62;
+                                </a>
+                            </div>
+                        </div>
+                    </a>
                     {BannerData.map((slide, index) => {
                         return (
                             <a href={slide.link}>
                                 <div className="carousel_slide" data-index={index} aria-hidden="true">
-                                    <img src={slide.image} alt={slide.title} />
+                                    <img src={slide.image} alt={slide.title} className="carousel_image" />
                                     <div className="carousel_slide_information">
                                         <h2>{slide.title}</h2>
                                         <h3>{slide.content}</h3>
@@ -84,10 +126,24 @@ const Slider = () => {
                             </a>
                         )
                     })}
+                    {/* fakeFirstBanner */}
+                    <a href={bannerFirstObj.link}>
+                        <div className="carousel_slide" data-index={1} aria-hidden="true">
+                            <img src={bannerFirstObj.image} alt={bannerFirstObj.title} className="carousel_image" />
+                            <div className="carousel_slide_information">
+                                <h2>{bannerFirstObj.title}</h2>
+                                <h3>{bannerFirstObj.content}</h3>
+                                <hr />
+                                <a className="carousel_link" href={bannerFirstObj.link}>
+                                    바로가기 &#62;
+                                </a>
+                            </div>
+                        </div>
+                    </a>
                 </Slider>
             </section>
-            <div className="arrow" onClick={switchPrevBannerNumber}> &#60; </div>
-            <div className="arrow" onClick={switchNextBannerNumber}> &#62; </div>
+            <LeftButton onClick={switchPrevBannerNumber}>&lt;</LeftButton>
+            <RightButton onClick={switchNextBannerNumber}>&gt;</RightButton>
             <div>{currentBannerNumber}</div>
         </>
     )

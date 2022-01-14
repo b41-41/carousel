@@ -132,7 +132,7 @@ a {
 
 /* 미디어 쿼리 */
 
-@media (max-width: 1178px) {
+@media (max-width: 1200px) {
   body {
     font-size: 12px;
   }

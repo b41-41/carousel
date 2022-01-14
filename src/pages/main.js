@@ -1,13 +1,20 @@
 import React from 'react';
+import styled from 'styled-components';
 import NavBar from '../component/NavBar';
 import Slider from '../component/Slider';
 
 const Main = () => {
 
+    const MainDiv = styled.div`
+    padding-top: 25px; 
+    `;
+
     return (
         <>
             <NavBar />
-            <Slider />
+            <MainDiv>
+                <Slider />
+            </MainDiv>
         </>
     );
 };
