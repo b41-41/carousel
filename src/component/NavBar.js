@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import menuImg from '../images/icon-menu.png';
 import logoImg from '../images/logo.png';
 import searchImg from '../images/search.png';
@@ -14,19 +15,19 @@ const NavBar = () => {
                         <div className="MainBar_MainBar_nav_top">
                             <div className="Mainbar_Mainbar_nav_top_logo">
                                 <button className="MainBar_hamberger" type="button"><img src={menuImg} alt="menu" width="17px" height="14px" /></button>
-                                <a href="/"><img src={logoImg} alt="logo" width="75px" height="17px" /></a>
+                                <Link to="/"><img src={logoImg} alt="logo" width="75px" height="17px" /></Link>
                             </div>
                             <button className="xsSignUpButton" type="button">회원가입하기</button>
                         </div>
                         <ul className="Menu_className">
-                            <li className='Menu_className_home'><a href="/">홈</a></li>
-                            <li><a href="/jobsfeed">채용</a></li>
-                            <li><a href="/events">이벤트</a></li>
-                            <li className="Menu_className_option"><a href="/salary">직군별 연봉</a></li>
-                            <li className="Menu_className_option"><a href="/cv/intro">이력서</a></li>
-                            <li className="Menu_className_option"><a href="/community">커뮤니티<em>New</em></a></li>
-                            <li className="Menu_className_option"><a href="/">프리랜서</a></li>
-                            <li className="Menu_className_option"><a href="aiscore/resume">AI 합격예측<em>Beta</em></a></li>
+                            <li className='Menu_className_home'><Link to="/">홈</Link></li>
+                            <li><Link to="/jobsfeed">채용</Link></li>
+                            <li><Link to="/events">이벤트</Link></li>
+                            <li className="Menu_className_option"><Link to="/salary">직군별 연봉</Link></li>
+                            <li className="Menu_className_option"><Link to="/cv/intro">이력서</Link></li>
+                            <li className="Menu_className_option"><Link to="/community">커뮤니티<em>New</em></Link></li>
+                            <li className="Menu_className_option"><Link to="/">프리랜서</Link></li>
+                            <li className="Menu_className_option"><Link to="aiscore/resume">AI 합격예측<em>Beta</em></Link></li>
                         </ul>
                         <aside className="Aside_className">
                             <ul>

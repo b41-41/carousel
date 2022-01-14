@@ -1,5 +1,5 @@
 {
-  "name": "carousel",
+  "name": "wanted_pre_onboarding",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -38,5 +38,5 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://b41-41.github.io/carousel/"
+  "homepage": "https://b41-41.github.io/wanted_pre_onboarding/"
 }

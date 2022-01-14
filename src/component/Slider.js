@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BannerData } from './BannerData';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import '../css/slider.css';
 
@@ -53,17 +54,19 @@ const Slider = () => {
                 <Slider>
                     {BannerData.map((slide, index) => {
                         return (
-                            <div className="carousel_slide" data-index={index} aria-hidden="true">
-                                <a href={slide.link}><img src={slide.image} alt={slide.title} /></a>
-                                <div className="carousel_slide_information">
-                                    <h2>{slide.title}</h2>
-                                    <h3>{slide.content}</h3>
-                                    <hr />
-                                    <a className="carousel_link" href={slide.link}>
-                                        바로가기 &#62;
-                                    </a>
+                            <a href={slide.link}>
+                                <div className="carousel_slide" data-index={index} aria-hidden="true">
+                                    <img src={slide.image} alt={slide.title} />
+                                    <div className="carousel_slide_information">
+                                        <h2>{slide.title}</h2>
+                                        <h3>{slide.content}</h3>
+                                        <hr />
+                                        <a className="carousel_link" href={slide.link}>
+                                            바로가기 &#62;
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         )
                     })}
                 </Slider>
