@@ -65,6 +65,7 @@ const Slider = () => {
     `;
 
     const LeftButton = styled.button`
+        ${browserWidth <= 1200 ? 'display: none;' : null}
         position: absolute;
         top: 195px;
         width: 30px;
@@ -74,9 +75,10 @@ const Slider = () => {
         background-color: #fff;
         font-size: 16px;;
         left: calc((100% - 1210px) / 2);
-    `;
+        `;
 
     const RightButton = styled.button`
+        ${browserWidth <= 1200 ? 'display: none;' : null}
         position: absolute;
         top: 195px;
         width: 30px;
@@ -90,6 +92,8 @@ const Slider = () => {
 
     const bannerFirstObj = BannerData[0];
     const bannerLastObj = BannerData[BannerData.length - 1];
+
+    console.log(browserWidth)
 
     return (
         <>
@@ -144,7 +148,6 @@ const Slider = () => {
             </section>
             <LeftButton onClick={switchPrevBannerNumber}>&lt;</LeftButton>
             <RightButton onClick={switchNextBannerNumber}>&gt;</RightButton>
-            <div>{currentBannerNumber}</div>
         </>
     )
 };

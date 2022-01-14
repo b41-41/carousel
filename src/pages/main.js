@@ -7,6 +7,7 @@ const Main = () => {
 
     const MainDiv = styled.div`
     padding-top: 25px; 
+    width: 100%;
     `;
 
     return (
