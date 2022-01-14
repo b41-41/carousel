@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BannerData } from './BannerData';
+import styled from 'styled-components';
 import '../css/slider.css';
 
 const Slider = () => {
@@ -39,17 +40,17 @@ const Slider = () => {
         }
     }
 
-    //캐러셀 transform, width 계산
-    const slideStyle = {
-        width: totalBannerWidth + 'px',
-        height: '300px',
-        transform: `translate(-${centerBannerPositionValue()}px, 0px)`
-    };
+    //캐러셀 Style값 (styled-components)
+    const Slider = styled.div`
+        display: flex;
+        width: ${totalBannerWidth}px;
+        transform: translate(-${centerBannerPositionValue()}px, 0px);
+    `;
 
     return (
         <>
             <section className="slider-box">
-                <div className="slider" style={slideStyle}>
+                <Slider>
                     {BannerData.map((slide, index) => {
                         return (
                             <div className="carousel_slide" data-index={index} aria-hidden="true">
@@ -65,7 +66,7 @@ const Slider = () => {
                             </div>
                         )
                     })}
-                </div>
+                </Slider>
             </section>
             <div className="arrow" onClick={switchPrevBannerNumber}> &#60; </div>
             <div className="arrow" onClick={switchNextBannerNumber}> &#62; </div>

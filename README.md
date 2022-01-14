@@ -8,7 +8,7 @@
 2. 캐러셀(슬라이드) 영역
 3. 반응형(Responsive Web) 구현
 
-## 바로가기 링크
+## 배포 주소
 
 https://b41-41.github.io/wanted_pre_onboarding/
 
@@ -28,6 +28,12 @@ https://b41-41.github.io/wanted_pre_onboarding/
 
 5. 터미널에서 'Ctrl + C'를 누르면 실행이 종료됩니다.
 
-## 배포 주소
+## 컴포넌트 설명
 
-배포 예정
+1. NavBar.js
+
+   최상단 네비게이션 바
+
+2. Slider.js
+
+   배너가 이동하는 캐러셀

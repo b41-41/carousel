@@ -4,10 +4,6 @@
   overflow: hidden;
 }
 
-.slider {
-  display: flex;
-}
-
 .carousel_slide {
   display: inline-block;
   position: relative;
