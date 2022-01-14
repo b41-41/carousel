@@ -1,16 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BannerData } from './BannerData';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import '../css/slider.css';
 
 const Slider = () => {
     const [currentBannerNumber, setCurrentBannerNumber] = useState(1);
-    let browserWidth = window.innerWidth;
+    const [browserWidth, setBrowserWidth] = useState(window.innerWidth);
+
+    const handleResize = () => {
+        setBrowserWidth(window.innerWidth);
+    }
+
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        }
+    }, []);
+
     //배너 넓이
     const bannerWidth = () => {
         if (window.innerWidth > 1080) {
             return 1072;
+        } else if (window.innerWidth < 800) {
+            return 500;
         } return;
     }
     //모든 배너 넓이의 합 (+사이드용 거짓 배너 (왼쪽 2개, 오른쪽 2개))
@@ -47,6 +60,8 @@ const Slider = () => {
         width: ${totalBannerWidth}px;
         transform: translate(-${centerBannerPositionValue()}px, 0px);
     `;
+
+
 
     return (
         <>
