@@ -1,4 +1,4 @@
-# [위코드 x 원티드] 프론트앤드 프리온보딩 선발 과제
+# [위코드 x 원티드] 프론트앤드 프리온보딩 코스 선발 과제
 
 원티드 상단 영역 클론 코딩
 
@@ -10,7 +10,7 @@
 
 ## 바로가기 링크
 
-https://b41-41.github.io/carousel/
+https://b41-41.github.io/wanted_pre_onboarding/
 
 ## 실행 방법
 
