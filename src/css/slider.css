@@ -11,6 +11,11 @@ hr {
 }
 
 .carousel_slide {
+  padding: 0 6px;
+  position: relative;
+}
+
+.carousel_slide_active {
   display: inline-block;
   position: relative;
   z-index: 0;

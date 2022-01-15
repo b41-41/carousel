@@ -19,6 +19,7 @@ const Slider = () => {
         };
     }, []);
 
+    //페이지 자동 넘김
     useInterval(switchNextBannerNumber, 4000);
 
     //배너 넓이
@@ -90,10 +91,20 @@ const Slider = () => {
         right: calc((100% - 1200px) / 2);
     `;
 
+    const CarouselOpacityBlock = styled.div`
+        z-index: 100;
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 4px;
+        width: ${bannerWidth() - 12}px;
+        height: ${browserWidth > 1200 ? 300 : 183}px;
+        left: 6px;
+        top: 0;
+    `;
+
     const bannerFirstObj = BannerData[0];
     const bannerLastObj = BannerData[BannerData.length - 1];
 
-    console.log(browserWidth)
 
     return (
         <>
@@ -103,29 +114,26 @@ const Slider = () => {
                     <a href={bannerLastObj.link}>
                         <div className="carousel_slide" data-index={BannerData.length} aria-hidden="true">
                             <img src={bannerLastObj.image} alt={bannerLastObj.title} className="carousel_image" />
-                            <div className="carousel_slide_information">
-                                <h2>{bannerLastObj.title}</h2>
-                                <h3>{bannerLastObj.content}</h3>
-                                <hr />
-                                <a className="carousel_link" href={bannerLastObj.link}>
-                                    바로가기 &#62;
-                                </a>
-                            </div>
+                            <CarouselOpacityBlock />
                         </div>
                     </a>
                     {BannerData.map((slide, index) => {
                         return (
                             <a href={slide.link}>
-                                <div className="carousel_slide" data-index={index} aria-hidden="true">
+                                <div className={currentBannerNumber === index + 1 ? 'carousel_slide_active' : 'carousel_slide'} data-index={index} aria-hidden="true">
                                     <img src={slide.image} alt={slide.title} className="carousel_image" />
-                                    <div className="carousel_slide_information">
-                                        <h2>{slide.title}</h2>
-                                        <h3>{slide.content}</h3>
-                                        <hr />
-                                        <a className="carousel_link" href={slide.link}>
-                                            바로가기 &#62;
-                                        </a>
-                                    </div>
+                                    {currentBannerNumber === index + 1 ?
+                                        <div className="carousel_slide_information">
+                                            <h2>{slide.title}</h2>
+                                            <h3>{slide.content}</h3>
+                                            <hr />
+                                            <a className="carousel_link" href={slide.link}>
+                                                바로가기 &#62;
+                                            </a>
+                                        </div> : null
+                                    }
+                                    {currentBannerNumber === index + 1 ?
+                                        null : <CarouselOpacityBlock />}
                                 </div>
                             </a>
                         )
@@ -134,14 +142,7 @@ const Slider = () => {
                     <a href={bannerFirstObj.link}>
                         <div className="carousel_slide" data-index={1} aria-hidden="true">
                             <img src={bannerFirstObj.image} alt={bannerFirstObj.title} className="carousel_image" />
-                            <div className="carousel_slide_information">
-                                <h2>{bannerFirstObj.title}</h2>
-                                <h3>{bannerFirstObj.content}</h3>
-                                <hr />
-                                <a className="carousel_link" href={bannerFirstObj.link}>
-                                    바로가기 &#62;
-                                </a>
-                            </div>
+                            <CarouselOpacityBlock />
                         </div>
                     </a>
                 </Slider>
