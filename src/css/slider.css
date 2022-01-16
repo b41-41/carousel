@@ -4,6 +4,11 @@ hr {
   background-color: #ececec;
 }
 
+.slider {
+  display: flex;
+  transition: transform 500ms ease;
+}
+
 .slider-box {
   display: block;
   width: 100%;

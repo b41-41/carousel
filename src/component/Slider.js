@@ -9,6 +9,7 @@ const Slider = () => {
     const [browserWidth, setBrowserWidth] = useState(window.innerWidth);
     const [touchWalk, setTouchWalk] = useState(0);
     const carouselRef = useRef();
+    const sliderRef = useRef();
 
     //브라우저 크기 변경 시 레이아웃 리사이즈
     const handleResize = () => {
@@ -23,14 +24,16 @@ const Slider = () => {
     }, []);
 
     useEffect(() => {
-        if (touchWalk < -150) {
+        if (touchWalk < -100) {
             setTouchWalk(0)
             switchNextBannerNumber()
-        } else if (touchWalk > 150) {
+        } else if (touchWalk > 100) {
             setTouchWalk(0)
             switchPrevBannerNumber()
         }
     }, [touchWalk])
+
+
 
     //페이지 자동 넘김
     useInterval(switchNextBannerNumber, 4000);
@@ -114,14 +117,13 @@ const Slider = () => {
         carouselRef.current.addEventListener('mouseleave', CarouselTouchCancel);
     }, [])
 
-    //캐러셀 Style값 (styled-components)
-    const Slider = styled.div`
-        display: flex;
-        width: ${props => props.totalBannerWidth}px;
-        transform: translate(-${props => props.centerValue}px, 0px);
-        transition: transform 500ms ease;
-    `;
+    //캐러셀 div 값 (useRef)
+    useEffect(() => {
+        sliderRef.current.style.width = totalBannerWidth + 'px';
+        sliderRef.current.style.transform = `translate(-${centerBannerPositionValue()}px, 0px)`
+    }, [currentBannerNumber])
 
+    //캐러셀 Style값 (styled-components)
 
     const LeftButton = styled.button`
         ${props => props.display}
@@ -168,7 +170,7 @@ const Slider = () => {
     return (
         <>
             <section className="slider-box" ref={carouselRef}>
-                <Slider centerValue={centerBannerPositionValue() - touchWalk} totalBannerWidth={totalBannerWidth}>
+                <div className="slider" ref={sliderRef}>
                     {/* fakeLastBanner */}
                     <a href={bannerLastObj.link}>
                         <div className="carousel_slide" data-index={BannerData.length} aria-hidden="true">
@@ -204,7 +206,7 @@ const Slider = () => {
                             <CarouselOpacityBlock width={bannerWidth() - 12} height={browserWidth > 1200 ? 300 : 183} />
                         </div>
                     </a>
-                </Slider>
+                </div>
             </section>
             <LeftButton onClick={switchPrevBannerNumber} display={buttonDisplay}>&lt;</LeftButton>
             <RightButton onClick={switchNextBannerNumber} display={buttonDisplay}>&gt;</RightButton>
