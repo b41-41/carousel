@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { BannerData } from './BannerData';
 import styled from 'styled-components';
 import '../css/slider.css';
@@ -7,7 +7,10 @@ import useInterval from '../hooks/useInterval';
 const Slider = () => {
     const [currentBannerNumber, setCurrentBannerNumber] = useState(1);
     const [browserWidth, setBrowserWidth] = useState(window.innerWidth);
+    const [touchWalk, setTouchWalk] = useState(0);
+    const carouselRef = useRef();
 
+    //브라우저 크기 변경 시 레이아웃 리사이즈
     const handleResize = () => {
         setBrowserWidth(window.innerWidth);
     }
@@ -18,6 +21,16 @@ const Slider = () => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
+
+    useEffect(() => {
+        if (touchWalk < -150) {
+            setTouchWalk(0)
+            switchNextBannerNumber()
+        } else if (touchWalk > 150) {
+            setTouchWalk(0)
+            switchPrevBannerNumber()
+        }
+    }, [touchWalk])
 
     //페이지 자동 넘김
     useInterval(switchNextBannerNumber, 4000);
@@ -37,8 +50,7 @@ const Slider = () => {
     const centerBannerPositionValue = () => {
         const lastBannerWidth = (currentBannerNumber) * bannerWidth();
         const lastBannerMargin = (browserWidth - bannerWidth()) / 2;
-        return lastBannerWidth - lastBannerMargin;
-
+        return lastBannerWidth - lastBannerMargin - touchWalk;
     }
 
     //배너 이동 function (버튼, 시간 조건으로 사용)
@@ -57,16 +69,62 @@ const Slider = () => {
         }
     }
 
+    // 터치 action
+    let isMouseDown = false;
+    let startX, scrollLeft;
+
+    const CarouselTouchStart = e => {
+        isMouseDown = true;
+
+        startX = e.pageX - carouselRef.current.offsetLeft;
+        scrollLeft = carouselRef.current.scrollLeft;
+
+    }
+    const CarouselTouchMove = e => {
+        if (!isMouseDown) return;
+
+        e.preventDefault();
+        const x = e.pageX - carouselRef.current.offsetLeft;
+        const walk = (x - startX) * 1;
+        // carouselRef.current.scrollLeft = scrollLeft - walk;
+        console.log(walk);
+        setTouchWalk(-walk);
+
+    }
+    const CarouselTouchEnd = () => {
+        isMouseDown = false;
+        carouselRef.current.scrollLeft = 0;
+        setTouchWalk(0);
+    }
+    const CarouselTouchCancel = () => {
+        isMouseDown = false;
+        carouselRef.current.scrollLeft = 0;
+        setTouchWalk(0);
+    }
+
+
+    useEffect(() => {
+        carouselRef.current.addEventListener('touchstart', CarouselTouchStart);
+        carouselRef.current.addEventListener('touchend', CarouselTouchEnd);
+        carouselRef.current.addEventListener('touchmove', CarouselTouchMove);
+        carouselRef.current.addEventListener('touchcancel', CarouselTouchCancel);
+        carouselRef.current.addEventListener('mousedown', CarouselTouchStart);
+        carouselRef.current.addEventListener('mouseup', CarouselTouchEnd);
+        carouselRef.current.addEventListener('mousemove', CarouselTouchMove);
+        carouselRef.current.addEventListener('mouseleave', CarouselTouchCancel);
+    }, [])
+
     //캐러셀 Style값 (styled-components)
     const Slider = styled.div`
         display: flex;
-        width: ${totalBannerWidth}px;
-        transform: translate(-${centerBannerPositionValue()}px, 0px);
+        width: ${props => props.totalBannerWidth}px;
+        transform: translate(-${props => props.centerValue}px, 0px);
         transition: transform 500ms ease;
     `;
 
+
     const LeftButton = styled.button`
-        ${browserWidth <= 1200 ? 'display: none;' : null}
+        ${props => props.display}
         position: absolute;
         top: 195px;
         width: 30px;
@@ -79,7 +137,7 @@ const Slider = () => {
         `;
 
     const RightButton = styled.button`
-        ${browserWidth <= 1200 ? 'display: none;' : null}
+        ${props => props.display}
         position: absolute;
         top: 195px;
         width: 30px;
@@ -96,25 +154,26 @@ const Slider = () => {
         position: absolute;
         background-color: rgba(0, 0, 0, 0.5);
         border-radius: 4px;
-        width: ${bannerWidth() - 12}px;
-        height: ${browserWidth > 1200 ? 300 : 183}px;
+        width: ${props => props.width}px;
+        height: ${props => props.height}px;
         left: 6px;
         top: 0;
     `;
 
+    //Fake 배너 값
     const bannerFirstObj = BannerData[0];
     const bannerLastObj = BannerData[BannerData.length - 1];
-
+    const buttonDisplay = browserWidth <= 1200 ? 'display: none;' : null;
 
     return (
         <>
-            <section className="slider-box">
-                <Slider>
+            <section className="slider-box" ref={carouselRef}>
+                <Slider centerValue={centerBannerPositionValue() - touchWalk} totalBannerWidth={totalBannerWidth}>
                     {/* fakeLastBanner */}
                     <a href={bannerLastObj.link}>
                         <div className="carousel_slide" data-index={BannerData.length} aria-hidden="true">
                             <img src={bannerLastObj.image} alt={bannerLastObj.title} className="carousel_image" />
-                            <CarouselOpacityBlock />
+                            <CarouselOpacityBlock width={bannerWidth() - 12} height={browserWidth > 1200 ? 300 : 183} />
                         </div>
                     </a>
                     {BannerData.map((slide, index) => {
@@ -133,7 +192,7 @@ const Slider = () => {
                                         </div> : null
                                     }
                                     {currentBannerNumber === index + 1 ?
-                                        null : <CarouselOpacityBlock />}
+                                        null : <CarouselOpacityBlock width={bannerWidth() - 12} height={browserWidth > 1200 ? 300 : 183} />}
                                 </div>
                             </a>
                         )
@@ -142,13 +201,14 @@ const Slider = () => {
                     <a href={bannerFirstObj.link}>
                         <div className="carousel_slide" data-index={1} aria-hidden="true">
                             <img src={bannerFirstObj.image} alt={bannerFirstObj.title} className="carousel_image" />
-                            <CarouselOpacityBlock />
+                            <CarouselOpacityBlock width={bannerWidth() - 12} height={browserWidth > 1200 ? 300 : 183} />
                         </div>
                     </a>
                 </Slider>
             </section>
-            <LeftButton onClick={switchPrevBannerNumber}>&lt;</LeftButton>
-            <RightButton onClick={switchNextBannerNumber}>&gt;</RightButton>
+            <LeftButton onClick={switchPrevBannerNumber} display={buttonDisplay}>&lt;</LeftButton>
+            <RightButton onClick={switchNextBannerNumber} display={buttonDisplay}>&gt;</RightButton>
+            {/* <div style={{ position: 'fixed', top: 600 + 'px' }}>{startX}rkskskdfdsk{walk}</div> */}
         </>
     )
 };
