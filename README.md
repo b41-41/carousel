@@ -37,3 +37,5 @@ https://b41-41.github.io/wanted_pre_onboarding/
 2. Slider.js
 
    배너가 이동하는 캐러셀
+
+   ![main_mini](https://user-images.githubusercontent.com/90027202/149716716-e5485055-291e-45b3-a41a-2801d2b6ffa5.gif)

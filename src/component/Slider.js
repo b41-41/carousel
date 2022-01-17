@@ -44,7 +44,7 @@ const Slider = () => {
             return browserWidth * 0.9;
         }
     }
-    //모든 배너 넓이의 합 (+사이드용 거짓 배너 (왼쪽 2개, 오른0쪽 2개))
+    //모든 배너 넓이의 합 (+사이드용 거짓 배너 (왼쪽 2개, 오른쪽 2개))
     const totalBannerWidth = (bannerWidth() * (BannerData.length + 2));
 
     //배너가 가운데에 위치 했을 때의 translate 값
