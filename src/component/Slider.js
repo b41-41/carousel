@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { BannerData } from './BannerData';
 import styled from 'styled-components';
 import '../css/slider.css';
@@ -10,6 +11,9 @@ const Slider = () => {
     const [isMouseDown, setIsMouseDown] = useState(false);
     const [touchStartX, setTouchStartX] = useState(0);
     const [touchEndX, setTouchEndX] = useState(0);
+    const [slideAnimation, setSlideAnimation] = useState(false);
+
+    const slideRef = useRef();
 
     //브라우저 크기 변경 시 레이아웃 리사이즈
     const handleResize = () => {
@@ -46,20 +50,22 @@ const Slider = () => {
 
     //배너 이동 function (버튼, 시간 조건으로 사용)
     function switchNextBannerNumber() {
+        setSlideAnimation(true);
         if (currentBannerNumber === BannerData.length) {
             setCurrentBannerNumber(1);
         } else {
             setCurrentBannerNumber(currentBannerNumber + 1);
         }
-        console.log(currentBannerNumber);
+        setSlideAnimation(false);
     }
     function switchPrevBannerNumber() {
+        setSlideAnimation(true);
         if (currentBannerNumber === 1) {
             setCurrentBannerNumber(BannerData.length);
         } else {
             setCurrentBannerNumber(currentBannerNumber - 1);
         }
-        console.log(currentBannerNumber);
+        setSlideAnimation(false);
     }
 
     // 터치 action
@@ -173,19 +179,20 @@ const Slider = () => {
                     className="slider"
                     style={{
                         width: totalBannerWidth + 'px',
-                        transform: `translate(-${centerBannerPositionValue()}px, 0px)`
+                        transform: `translate(-${centerBannerPositionValue()}px, 0px)`,
                     }}
+                    ref={slideRef}
                 >
                     {/* fakeLastBanner */}
-                    <a href={bannerLastObj.link}>
+                    <Link to={bannerLastObj.link}>
                         <div className="carousel_slide" data-index={BannerData.length} aria-hidden="true">
                             <img src={bannerLastObj.image} alt={bannerLastObj.title} className="carousel_image" />
                             <CarouselOpacityBlock width={bannerWidth() - 12} height={browserWidth > 1200 ? 300 : 183} />
                         </div>
-                    </a>
+                    </Link>
                     {BannerData.map((slide, index) => {
                         return (
-                            <a href={slide.link}>
+                            <Link to={slide.link}>
                                 <div className={currentBannerNumber === index + 1 ? 'carousel_slide_active' : 'carousel_slide'} data-index={index} aria-hidden="true">
                                     <img src={slide.image} alt={slide.title} className="carousel_image" />
                                     {currentBannerNumber === index + 1 ?
@@ -201,16 +208,16 @@ const Slider = () => {
                                     {currentBannerNumber === index + 1 ?
                                         null : <CarouselOpacityBlock width={bannerWidth() - 12} height={browserWidth > 1200 ? 300 : 183} />}
                                 </div>
-                            </a>
+                            </Link>
                         )
                     })}
                     {/* fakeFirstBanner */}
-                    <a href={bannerFirstObj.link}>
+                    <Link to={bannerLastObj.link}>
                         <div className="carousel_slide" data-index={1} aria-hidden="true">
                             <img src={bannerFirstObj.image} alt={bannerFirstObj.title} className="carousel_image" />
                             <CarouselOpacityBlock width={bannerWidth() - 12} height={browserWidth > 1200 ? 300 : 183} />
                         </div>
-                    </a>
+                    </Link>
                 </div>
             </section>
             <LeftButton onClick={switchPrevBannerNumber} display={buttonDisplay}>&lt;</LeftButton>

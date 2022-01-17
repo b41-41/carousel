@@ -41,4 +41,11 @@ https://b41-41.github.io/wanted_pre_onboarding/
 
    배너가 이동하는 캐러셀
 
+   - 버튼 클릭으로 좌우 이동 가능
+   
    ![main_mini](https://user-images.githubusercontent.com/90027202/149716716-e5485055-291e-45b3-a41a-2801d2b6ffa5.gif)
+   
+   - 슬라이드 터치로 좌우 이동 가능
+   
+     ![mobile](https://user-images.githubusercontent.com/90027202/149771043-54b99a41-0728-409f-ae15-8e159466c2e6.gif)
+

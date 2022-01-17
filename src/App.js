@@ -5,10 +5,10 @@ import Main from './pages/main';
 
 function App() {
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <Routes>
+    <BrowserRouter basename={'/wanted_pre_onboarding'}>
+      < Routes >
         <Route path="/" element={<Main />} />
-      </Routes>
+      </ Routes>
     </BrowserRouter>
   );
 }

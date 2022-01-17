@@ -6,7 +6,7 @@ hr {
 
 .slider {
   display: flex;
-  /* transition: transform 500ms ease; */
+  transition: transform 500ms ease;
 }
 
 .slider-box {
