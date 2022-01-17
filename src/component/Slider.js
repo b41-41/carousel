@@ -21,7 +21,7 @@ const Slider = () => {
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, []);
+    }, [browserWidth]);
 
     useEffect(() => {
         if (touchWalk < -100) {
@@ -32,8 +32,6 @@ const Slider = () => {
             switchPrevBannerNumber()
         }
     }, [touchWalk])
-
-
 
     //페이지 자동 넘김
     useInterval(switchNextBannerNumber, 4000);
@@ -121,7 +119,7 @@ const Slider = () => {
     useEffect(() => {
         sliderRef.current.style.width = totalBannerWidth + 'px';
         sliderRef.current.style.transform = `translate(-${centerBannerPositionValue()}px, 0px)`
-    }, [currentBannerNumber])
+    }, [currentBannerNumber, browserWidth])
 
     //캐러셀 Style값 (styled-components)
 
