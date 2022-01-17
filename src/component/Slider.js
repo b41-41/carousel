@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BannerData } from './BannerData';
 import styled from 'styled-components';
 import '../css/slider.css';
@@ -7,9 +7,9 @@ import useInterval from '../hooks/useInterval';
 const Slider = () => {
     const [currentBannerNumber, setCurrentBannerNumber] = useState(1);
     const [browserWidth, setBrowserWidth] = useState(window.innerWidth);
-    const [touchWalk, setTouchWalk] = useState(0);
-    const carouselRef = useRef();
-    const sliderRef = useRef();
+    const [isMouseDown, setIsMouseDown] = useState(false);
+    const [touchStartX, setTouchStartX] = useState(0);
+    const [touchEndX, setTouchEndX] = useState(0);
 
     //브라우저 크기 변경 시 레이아웃 리사이즈
     const handleResize = () => {
@@ -23,16 +23,6 @@ const Slider = () => {
         };
     }, [browserWidth]);
 
-    useEffect(() => {
-        if (touchWalk < -100) {
-            setTouchWalk(0)
-            switchNextBannerNumber()
-        } else if (touchWalk > 100) {
-            setTouchWalk(0)
-            switchPrevBannerNumber()
-        }
-    }, [touchWalk])
-
     //페이지 자동 넘김
     useInterval(switchNextBannerNumber, 4000);
 
@@ -44,14 +34,14 @@ const Slider = () => {
             return browserWidth * 0.9;
         }
     }
-    //모든 배너 넓이의 합 (+사이드용 거짓 배너 (왼쪽 2개, 오른쪽 2개))
+    //모든 배너 넓이의 합 (+사이드용 거짓 배너 (왼쪽 1개, 오른쪽 1개))
     const totalBannerWidth = (bannerWidth() * (BannerData.length + 2));
 
     //배너가 가운데에 위치 했을 때의 translate 값
     const centerBannerPositionValue = () => {
         const lastBannerWidth = (currentBannerNumber) * bannerWidth();
         const lastBannerMargin = (browserWidth - bannerWidth()) / 2;
-        return lastBannerWidth - lastBannerMargin - touchWalk;
+        return lastBannerWidth - lastBannerMargin + (touchStartX - touchEndX);
     }
 
     //배너 이동 function (버튼, 시간 조건으로 사용)
@@ -61,6 +51,7 @@ const Slider = () => {
         } else {
             setCurrentBannerNumber(currentBannerNumber + 1);
         }
+        console.log(currentBannerNumber);
     }
     function switchPrevBannerNumber() {
         if (currentBannerNumber === 1) {
@@ -68,58 +59,58 @@ const Slider = () => {
         } else {
             setCurrentBannerNumber(currentBannerNumber - 1);
         }
+        console.log(currentBannerNumber);
     }
 
     // 터치 action
-    let isMouseDown = false;
-    let startX, scrollLeft;
-
     const CarouselTouchStart = e => {
-        isMouseDown = true;
-
-        startX = e.pageX - carouselRef.current.offsetLeft;
-        scrollLeft = carouselRef.current.scrollLeft;
-
+        setIsMouseDown(true);
+        setTouchStartX(e.changedTouches[0].pageX);
     }
+
     const CarouselTouchMove = e => {
         if (!isMouseDown) return;
-
         e.preventDefault();
-        const x = e.pageX - carouselRef.current.offsetLeft;
-        const walk = (x - startX) * 1;
-        // carouselRef.current.scrollLeft = scrollLeft - walk;
-        console.log(walk);
-        setTouchWalk(-walk);
-
+        setTouchEndX(e.changedTouches[0].pageX);
     }
+    const CarouselMouseDown = e => {
+        setIsMouseDown(true);
+        setTouchStartX(e.pageX);
+    }
+
+    const CarouselMouseMove = e => {
+        if (!isMouseDown) return;
+        e.preventDefault();
+        setTouchEndX(e.pageX);
+    }
+
     const CarouselTouchEnd = () => {
-        isMouseDown = false;
-        carouselRef.current.scrollLeft = 0;
-        setTouchWalk(0);
+        setIsMouseDown(false);
+        const touchMoveDistance = touchStartX - touchEndX;
+        if (touchMoveDistance > 120) {
+            switchNextBannerNumber();
+        } else if (touchMoveDistance < -120) {
+            switchPrevBannerNumber();
+        }
+
+        //초기화
+        setTouchStartX(0);
+        setTouchEndX(0);
+
     }
     const CarouselTouchCancel = () => {
-        isMouseDown = false;
-        carouselRef.current.scrollLeft = 0;
-        setTouchWalk(0);
+        setIsMouseDown(false);
+        const touchMoveDistance = touchStartX - touchEndX;
+        if (touchMoveDistance > 120) {
+            switchNextBannerNumber();
+        } else if (touchMoveDistance < -120) {
+            switchPrevBannerNumber();
+        }
+
+        //초기화
+        setTouchStartX(0);
+        setTouchEndX(0);
     }
-
-
-    useEffect(() => {
-        carouselRef.current.addEventListener('touchstart', CarouselTouchStart);
-        carouselRef.current.addEventListener('touchend', CarouselTouchEnd);
-        carouselRef.current.addEventListener('touchmove', CarouselTouchMove);
-        carouselRef.current.addEventListener('touchcancel', CarouselTouchCancel);
-        carouselRef.current.addEventListener('mousedown', CarouselTouchStart);
-        carouselRef.current.addEventListener('mouseup', CarouselTouchEnd);
-        carouselRef.current.addEventListener('mousemove', CarouselTouchMove);
-        carouselRef.current.addEventListener('mouseleave', CarouselTouchCancel);
-    }, [])
-
-    //캐러셀 div 값 (useRef)
-    useEffect(() => {
-        sliderRef.current.style.width = totalBannerWidth + 'px';
-        sliderRef.current.style.transform = `translate(-${centerBannerPositionValue()}px, 0px)`
-    }, [currentBannerNumber, browserWidth])
 
     //캐러셀 Style값 (styled-components)
 
@@ -167,8 +158,24 @@ const Slider = () => {
 
     return (
         <>
-            <section className="slider-box" ref={carouselRef}>
-                <div className="slider" ref={sliderRef}>
+            <section
+                className="slider-box"
+                onTouchStart={CarouselTouchStart}
+                onTouchEnd={CarouselTouchEnd}
+                onTouchMove={CarouselTouchMove}
+                onTouchCancel={CarouselTouchCancel}
+                onMouseDown={CarouselMouseDown}
+                onMouseUp={CarouselTouchEnd}
+                onMouseMove={CarouselMouseMove}
+                onMouseLeave={CarouselTouchCancel}
+            >
+                <div
+                    className="slider"
+                    style={{
+                        width: totalBannerWidth + 'px',
+                        transform: `translate(-${centerBannerPositionValue()}px, 0px)`
+                    }}
+                >
                     {/* fakeLastBanner */}
                     <a href={bannerLastObj.link}>
                         <div className="carousel_slide" data-index={BannerData.length} aria-hidden="true">

@@ -34,6 +34,9 @@ https://b41-41.github.io/wanted_pre_onboarding/
 
    최상단 네비게이션 바
 
+   - 반응형 구현
+     ![responsive](https://user-images.githubusercontent.com/90027202/149720415-7e11f6fa-fcf9-4734-a16b-eb792ba2d327.gif)
+
 2. Slider.js
 
    배너가 이동하는 캐러셀
