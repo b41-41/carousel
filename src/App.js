@@ -5,7 +5,7 @@ import Main from './pages/main';
 
 function App() {
   return (
-    <BrowserRouter basename={'/wanted_pre_onboarding'}>
+    <BrowserRouter basename={'/'}>
       < Routes >
         <Route path="/" element={<Main />} />
       </ Routes>

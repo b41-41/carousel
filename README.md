@@ -10,7 +10,7 @@
 
 ## 배포 주소
 
-https://b41-41.github.io/wanted_pre_onboarding/
+https://optimistic-bose-4e9ed9.netlify.app
 
 ## 실행 방법
 
