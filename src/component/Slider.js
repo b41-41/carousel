@@ -11,6 +11,7 @@ const Slider = () => {
     const [isMouseDown, setIsMouseDown] = useState(false);
     const [touchStartX, setTouchStartX] = useState(0);
     const [touchEndX, setTouchEndX] = useState(0);
+    const [intervalState, setIntervalState] = useState(true);
 
     const slideRef = useRef();
 
@@ -27,7 +28,7 @@ const Slider = () => {
     }, [browserWidth]);
 
     //페이지 자동 넘김
-    // useInterval(switchNextBannerNumber, 4000);
+    useInterval(switchNextBannerNumber, intervalState ? 4000 : null);
 
     //배너 넓이
     const bannerWidth = () => {
@@ -82,6 +83,14 @@ const Slider = () => {
     }
 
     // 터치 action
+    const CarouselMouseEnter = () => {
+        setIntervalState(false);
+    }
+
+    const CarouselMouseOver = () => {
+        setIntervalState(true);
+    }
+
     const CarouselTouchStart = e => {
         setIsMouseDown(true);
         setTouchStartX(e.changedTouches[0].pageX);
@@ -188,6 +197,8 @@ const Slider = () => {
                 onMouseUp={CarouselTouchEnd}
                 onMouseMove={CarouselMouseMove}
                 onMouseLeave={CarouselTouchCancel}
+                onMouseEnter={CarouselMouseEnter}
+                onMouseOver={CarouselMouseOver}
             >
                 <div
                     className="slider"

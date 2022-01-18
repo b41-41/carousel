@@ -2,10 +2,10 @@
 
 원티드 상단 영역 클론 코딩
 
-## 과제 구현 목록
+## 구현 목록
 
 1. 상단 GNB (Global Navigation Bar)
-2. 캐러셀(슬라이드) 영역
+2. 라이브러리를 사용하지 않고 캐러셀(슬라이드) 만들기
 3. 반응형(Responsive Web) 구현
 
 ## 배포 주소
@@ -42,10 +42,9 @@ https://b41-41.github.io/wanted_pre_onboarding/
    배너가 이동하는 캐러셀
 
    - 버튼 클릭으로 좌우 이동 가능
-   
-   ![main_mini](https://user-images.githubusercontent.com/90027202/149716716-e5485055-291e-45b3-a41a-2801d2b6ffa5.gif)
-   
-   - 슬라이드 터치로 좌우 이동 가능
-   
-     ![mobile](https://user-images.githubusercontent.com/90027202/149771043-54b99a41-0728-409f-ae15-8e159466c2e6.gif)
 
+   ![main_mini](https://user-images.githubusercontent.com/90027202/149716716-e5485055-291e-45b3-a41a-2801d2b6ffa5.gif)
+
+   - 슬라이드 터치로 좌우 이동 가능
+
+     ![mobile](https://user-images.githubusercontent.com/90027202/149771043-54b99a41-0728-409f-ae15-8e159466c2e6.gif)
