@@ -11,7 +11,6 @@ const Slider = () => {
     const [isMouseDown, setIsMouseDown] = useState(false);
     const [touchStartX, setTouchStartX] = useState(0);
     const [touchEndX, setTouchEndX] = useState(0);
-    const [slideAnimation, setSlideAnimation] = useState(false);
 
     const slideRef = useRef();
 
@@ -28,7 +27,7 @@ const Slider = () => {
     }, [browserWidth]);
 
     //페이지 자동 넘김
-    useInterval(switchNextBannerNumber, 4000);
+    // useInterval(switchNextBannerNumber, 4000);
 
     //배너 넓이
     const bannerWidth = () => {
@@ -39,33 +38,47 @@ const Slider = () => {
         }
     }
     //모든 배너 넓이의 합 (+사이드용 거짓 배너 (왼쪽 1개, 오른쪽 1개))
-    const totalBannerWidth = (bannerWidth() * (BannerData.length + 2));
+    const totalBannerWidth = (bannerWidth() * (BannerData.length + 4));
 
     //배너가 가운데에 위치 했을 때의 translate 값
     const centerBannerPositionValue = () => {
-        const lastBannerWidth = (currentBannerNumber) * bannerWidth();
+        const lastBannerWidth = (currentBannerNumber + 1) * bannerWidth();
         const lastBannerMargin = (browserWidth - bannerWidth()) / 2;
-        return lastBannerWidth - lastBannerMargin + (touchStartX - touchEndX);
+        const bannerTouchValue = touchStartX - touchEndX;
+        if (currentBannerNumber > 1 || currentBannerNumber < BannerData.length) {
+            return lastBannerWidth - lastBannerMargin + bannerTouchValue;
+        } else {
+            return bannerWidth() - lastBannerMargin + bannerTouchValue;
+        }
+
     }
 
     //배너 이동 function (버튼, 시간 조건으로 사용)
     function switchNextBannerNumber() {
-        setSlideAnimation(true);
         if (currentBannerNumber === BannerData.length) {
-            setCurrentBannerNumber(1);
+            setCurrentBannerNumber(currentBannerNumber + 1);
+            setTimeout(() => {
+                setCurrentBannerNumber(1);
+                slideRef.current.style.transition = 'none';
+            }, 500);
+            slideRef.current.style.transition = '0.5s ease transform';
         } else {
+            slideRef.current.style.transition = '0.5s ease transform';
             setCurrentBannerNumber(currentBannerNumber + 1);
         }
-        setSlideAnimation(false);
     }
     function switchPrevBannerNumber() {
-        setSlideAnimation(true);
         if (currentBannerNumber === 1) {
-            setCurrentBannerNumber(BannerData.length);
+            setCurrentBannerNumber(currentBannerNumber - 1);
+            setTimeout(() => {
+                setCurrentBannerNumber(BannerData.length);
+                slideRef.current.style.transition = 'none';
+            }, 500);
+            slideRef.current.style.transition = '0.5s ease transform';
         } else {
+            slideRef.current.style.transition = '0.5s ease transform';
             setCurrentBannerNumber(currentBannerNumber - 1);
         }
-        setSlideAnimation(false);
     }
 
     // 터치 action
@@ -118,8 +131,7 @@ const Slider = () => {
         setTouchEndX(0);
     }
 
-    //캐러셀 Style값 (styled-components)
-
+    //Style
     const LeftButton = styled.button`
         ${props => props.display}
         position: absolute;
@@ -158,8 +170,10 @@ const Slider = () => {
     `;
 
     //Fake 배너 값
-    const bannerFirstObj = BannerData[0];
+    const bannerLastObj2 = BannerData[BannerData.length - 2];
     const bannerLastObj = BannerData[BannerData.length - 1];
+    const bannerFirstObj = BannerData[0];
+    const bannerFirstObj2 = BannerData[1];
     const buttonDisplay = browserWidth <= 1200 ? 'display: none;' : null;
 
     return (
@@ -184,6 +198,12 @@ const Slider = () => {
                     ref={slideRef}
                 >
                     {/* fakeLastBanner */}
+                    <Link to={bannerLastObj2.link}>
+                        <div className="carousel_slide" data-index={BannerData.length} aria-hidden="true">
+                            <img src={bannerLastObj2.image} alt={bannerLastObj2.title} className="carousel_image" />
+                            <CarouselOpacityBlock width={bannerWidth() - 12} height={browserWidth > 1200 ? 300 : 183} />
+                        </div>
+                    </Link>
                     <Link to={bannerLastObj.link}>
                         <div className="carousel_slide" data-index={BannerData.length} aria-hidden="true">
                             <img src={bannerLastObj.image} alt={bannerLastObj.title} className="carousel_image" />
@@ -215,6 +235,12 @@ const Slider = () => {
                     <Link to={bannerLastObj.link}>
                         <div className="carousel_slide" data-index={1} aria-hidden="true">
                             <img src={bannerFirstObj.image} alt={bannerFirstObj.title} className="carousel_image" />
+                            <CarouselOpacityBlock width={bannerWidth() - 12} height={browserWidth > 1200 ? 300 : 183} />
+                        </div>
+                    </Link>
+                    <Link to={bannerLastObj2.link}>
+                        <div className="carousel_slide" data-index={1} aria-hidden="true">
+                            <img src={bannerFirstObj2.image} alt={bannerFirstObj2.title} className="carousel_image" />
                             <CarouselOpacityBlock width={bannerWidth() - 12} height={browserWidth > 1200 ? 300 : 183} />
                         </div>
                     </Link>
