@@ -221,9 +221,9 @@ const Slider = () => {
                 >
                     {/* fakeLastBanner */}
                     <div className="carousel_slide" data-index={BannerData.length} aria-hidden="true" width={carouselWidth} height={carouselHeight()}>
-                        <Link to={bannerLastObj2.link}>
+                        <Link to={bannerLastObj2.link}><a>
                             <img src={bannerLastObj2.image} alt={bannerLastObj2.title} className="carousel_image" width={carouselWidth} />
-                            <CarouselOpacityBlock width={carouselWidth} height={carouselHeight()} />
+                            <CarouselOpacityBlock width={carouselWidth} height={carouselHeight()} /></a>
                         </Link>
                     </div>
                     <div className="carousel_slide" data-index={BannerData.length} aria-hidden="true" width={carouselWidth} height={carouselHeight()}>
@@ -234,7 +234,7 @@ const Slider = () => {
                     </div>
                     {BannerData.map((slide, index) => {
                         return (
-                            <div className={currentBannerNumber === index + 1 ? 'carousel_slide_active' : 'carousel_slide'} data-index={index} aria-hidden="true">
+                            <div className={currentBannerNumber === index + 1 ? 'carousel_slide_active' : 'carousel_slide'} data-index={index} key={index} aria-hidden="true">
                                 <Link to={slide.link}>
                                     <img src={slide.image} alt={slide.title} className="carousel_image" width={carouselWidth} />
                                     {currentBannerNumber === index + 1 ?
@@ -242,9 +242,9 @@ const Slider = () => {
                                             <h2>{slide.title}</h2>
                                             <h3>{slide.content}</h3>
                                             <hr />
-                                            <a className="carousel_link" href={slide.link}>
+                                            <div className="carousel_link" href={slide.link}>
                                                 바로가기 &#62;
-                                            </a>
+                                            </div>
                                         </div> : null
                                     }
                                     {currentBannerNumber === index + 1 ?
