@@ -35,9 +35,10 @@ const Slider = () => {
         if (browserWidth > 1200) {
             return 1072;
         } else {
-            return browserWidth * 0.9;
+            return (browserWidth * 0.9) + 12;
         }
     }
+    console.log(bannerWidth());
     //모든 배너 넓이의 합 (+사이드용 거짓 배너 (왼쪽 1개, 오른쪽 1개))
     const totalBannerWidth = (bannerWidth() * (BannerData.length + 4));
 
@@ -59,8 +60,8 @@ const Slider = () => {
         if (currentBannerNumber === BannerData.length) {
             setCurrentBannerNumber(currentBannerNumber + 1);
             setTimeout(() => {
-                setCurrentBannerNumber(1);
                 slideRef.current.style.transition = 'none';
+                setCurrentBannerNumber(1);
             }, 500);
             slideRef.current.style.transition = '0.5s ease transform';
         } else {
@@ -72,8 +73,8 @@ const Slider = () => {
         if (currentBannerNumber === 1) {
             setCurrentBannerNumber(currentBannerNumber - 1);
             setTimeout(() => {
-                setCurrentBannerNumber(BannerData.length);
                 slideRef.current.style.transition = 'none';
+                setCurrentBannerNumber(BannerData.length);
             }, 500);
             slideRef.current.style.transition = '0.5s ease transform';
         } else {
@@ -185,6 +186,16 @@ const Slider = () => {
     const bannerFirstObj2 = BannerData[1];
     const buttonDisplay = browserWidth <= 1200 ? 'display: none;' : null;
 
+    //slide 값
+    const carouselWidth = bannerWidth() - 12;
+    const carouselHeight = () => {
+        if (browserWidth > 1200) {
+            return 300;
+        } else {
+            return 183;
+        }
+    }
+
     return (
         <>
             <section
@@ -209,23 +220,23 @@ const Slider = () => {
                     ref={slideRef}
                 >
                     {/* fakeLastBanner */}
-                    <Link to={bannerLastObj2.link}>
-                        <div className="carousel_slide" data-index={BannerData.length} aria-hidden="true">
-                            <img src={bannerLastObj2.image} alt={bannerLastObj2.title} className="carousel_image" />
-                            <CarouselOpacityBlock width={bannerWidth() - 12} height={browserWidth > 1200 ? 300 : 183} />
-                        </div>
-                    </Link>
-                    <Link to={bannerLastObj.link}>
-                        <div className="carousel_slide" data-index={BannerData.length} aria-hidden="true">
-                            <img src={bannerLastObj.image} alt={bannerLastObj.title} className="carousel_image" />
-                            <CarouselOpacityBlock width={bannerWidth() - 12} height={browserWidth > 1200 ? 300 : 183} />
-                        </div>
-                    </Link>
+                    <div className="carousel_slide" data-index={BannerData.length} aria-hidden="true" width={carouselWidth} height={carouselHeight()}>
+                        <Link to={bannerLastObj2.link}>
+                            <img src={bannerLastObj2.image} alt={bannerLastObj2.title} className="carousel_image" width={carouselWidth} />
+                            <CarouselOpacityBlock width={carouselWidth} height={carouselHeight()} />
+                        </Link>
+                    </div>
+                    <div className="carousel_slide" data-index={BannerData.length} aria-hidden="true" width={carouselWidth} height={carouselHeight()}>
+                        <Link to={bannerLastObj.link}>
+                            <img src={bannerLastObj.image} alt={bannerLastObj.title} className="carousel_image" width={carouselWidth} />
+                            <CarouselOpacityBlock width={carouselWidth} height={carouselHeight()} />
+                        </Link>
+                    </div>
                     {BannerData.map((slide, index) => {
                         return (
-                            <Link to={slide.link}>
-                                <div className={currentBannerNumber === index + 1 ? 'carousel_slide_active' : 'carousel_slide'} data-index={index} aria-hidden="true">
-                                    <img src={slide.image} alt={slide.title} className="carousel_image" />
+                            <div className={currentBannerNumber === index + 1 ? 'carousel_slide_active' : 'carousel_slide'} data-index={index} aria-hidden="true">
+                                <Link to={slide.link}>
+                                    <img src={slide.image} alt={slide.title} className="carousel_image" width={carouselWidth} />
                                     {currentBannerNumber === index + 1 ?
                                         <div className="carousel_slide_information">
                                             <h2>{slide.title}</h2>
@@ -237,29 +248,28 @@ const Slider = () => {
                                         </div> : null
                                     }
                                     {currentBannerNumber === index + 1 ?
-                                        null : <CarouselOpacityBlock width={bannerWidth() - 12} height={browserWidth > 1200 ? 300 : 183} />}
-                                </div>
-                            </Link>
+                                        null : <CarouselOpacityBlock width={carouselWidth} height={carouselHeight()} />}
+                                </Link>
+                            </div>
                         )
                     })}
                     {/* fakeFirstBanner */}
-                    <Link to={bannerLastObj.link}>
-                        <div className="carousel_slide" data-index={1} aria-hidden="true">
-                            <img src={bannerFirstObj.image} alt={bannerFirstObj.title} className="carousel_image" />
-                            <CarouselOpacityBlock width={bannerWidth() - 12} height={browserWidth > 1200 ? 300 : 183} />
-                        </div>
-                    </Link>
-                    <Link to={bannerLastObj2.link}>
-                        <div className="carousel_slide" data-index={1} aria-hidden="true">
-                            <img src={bannerFirstObj2.image} alt={bannerFirstObj2.title} className="carousel_image" />
-                            <CarouselOpacityBlock width={bannerWidth() - 12} height={browserWidth > 1200 ? 300 : 183} />
-                        </div>
-                    </Link>
+                    <div className="carousel_slide" data-index={1} aria-hidden="true" width={carouselWidth} height={carouselHeight()}>
+                        <Link to={bannerLastObj.link}>
+                            <img src={bannerFirstObj.image} alt={bannerFirstObj.title} className="carousel_image" width={carouselWidth} />
+                            <CarouselOpacityBlock width={carouselWidth} height={carouselHeight()} />
+                        </Link>
+                    </div>
+                    <div className="carousel_slide" data-index={1} aria-hidden="true" width={carouselWidth} height={carouselHeight()}>
+                        <Link to={bannerLastObj2.link}>
+                            <img src={bannerFirstObj2.image} alt={bannerFirstObj2.title} className="carousel_image" width={carouselWidth} />
+                            <CarouselOpacityBlock width={carouselWidth} height={carouselHeight()} />
+                        </Link>
+                    </div>
                 </div>
             </section>
             <LeftButton onClick={switchPrevBannerNumber} display={buttonDisplay}>&lt;</LeftButton>
             <RightButton onClick={switchNextBannerNumber} display={buttonDisplay}>&gt;</RightButton>
-            {/* <div style={{ position: 'fixed', top: 600 + 'px' }}>{startX}rkskskdfdsk{walk}</div> */}
         </>
     )
 };
