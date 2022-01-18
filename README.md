@@ -35,7 +35,8 @@ https://optimistic-bose-4e9ed9.netlify.app
    최상단 네비게이션 바
 
    - 반응형 구현
-     ![responsive](https://user-images.githubusercontent.com/90027202/149720415-7e11f6fa-fcf9-4734-a16b-eb792ba2d327.gif)
+
+     ![ScreenRecorderProject8](https://user-images.githubusercontent.com/90027202/149947780-42c7ad63-ff4b-4e97-9dd8-2224d0771cc3.gif)
 
 2. Slider.js
 
