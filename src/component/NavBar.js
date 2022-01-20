@@ -20,12 +20,12 @@ const NavBar = () => {
                             <button className="xsSignUpButton" type="button">회원가입하기</button>
                         </div>
                         <ul className="Menu_className">
-                            <li className='Menu_className_home'><Link to="/">홈></Link></li>
+                            <li className='Menu_className_home'><Link to="/">홈</Link></li>
                             <li><Link to="/jobsfeed">채용</Link></li>
                             <li><Link to="/events">이벤트</Link></li>
                             <li className="Menu_className_option"><Link to="/salary">직군별 연봉</Link></li>
                             <li className="Menu_className_option"><Link to="/cv/intro">이력서</Link></li>
-                            <li className="Menu_className_option_new"><Link to="/community">커뮤니티<em>New</em></Link></li>
+                            <li className="Menu_className_option_new"><Link to="/community">커뮤니티</Link><em>New</em></li>
 
                             <li className="Menu_className_option"><Link to="/">프리랜서</Link></li>
                             <li className="Menu_className_option_beta"><Link to="aiscore/resume">AI 합격예측<em>Beta</em></Link></li>

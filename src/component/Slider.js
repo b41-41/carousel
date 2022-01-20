@@ -38,7 +38,6 @@ const Slider = () => {
             return (browserWidth * 0.9) + 12;
         }
     }
-    console.log(bannerWidth());
     //모든 배너 넓이의 합 (+사이드용 거짓 배너 (왼쪽 1개, 오른쪽 1개))
     const totalBannerWidth = (bannerWidth() * (BannerData.length + 4));
 
