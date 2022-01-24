@@ -1,6 +1,4 @@
-# [위코드 x 원티드] 프론트앤드 프리온보딩 코스 선발 과제
-
-원티드 상단 영역 클론 코딩
+# 원티드 상단 영역 클론 코딩
 
 ## 구현 목록
 
@@ -20,7 +18,7 @@ https://optimistic-bose-4e9ed9.netlify.app
 
 3. 터미널로 압축을 푼 폴더로 들어가서 react-create-app을 설치합니다.
 
-   `npm install react-create-app`
+   `npm install`
 
 4. 그 이후 `npm run start`를 터미널에 입력하면 인터넷 브라우저가 뜨며 페이지를 볼 수 있습니다.
 
